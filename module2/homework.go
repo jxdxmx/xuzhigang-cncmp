@@ -42,9 +42,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("VERSION", ver)
 
 	// 3、Server 端记录访问日志包括客户端 IP，HTTP 返回码，输出到 server 端的标准输出
-	//ip := r.Host
+	ip := r.RemoteAddr
+	glog.Info("client ip ", ip, ",status code ", http.StatusOK)
 
-	res := fmt.Sprintf("hello world handler, VERSION:%s \n", ver)
+	res := fmt.Sprintf("hello world handler, VERSION %s , client ip %s \n", ver, ip)
 	_, _ = w.Write([]byte(res))
 	w.WriteHeader(http.StatusOK)
 }
