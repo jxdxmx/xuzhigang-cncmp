@@ -3,7 +3,8 @@ FROM golang:1.16-alpine AS build
 ADD . .
 ENV GOMODULE111=ON
 ENV GOPROXY=https://goproxy.cn,direct
-RUN GOOS=linux GOARCH=amd64 go build -o /httpserver homework.go
+RUN #GOOS=linux GOARCH=amd64 go build -o /httpserver homework.go
+RUN go build -o /httpserver homework.go
 
 FROM alpine
 COPY --from=build /httpserver httpserver
