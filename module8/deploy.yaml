@@ -18,7 +18,7 @@ spec:
         - name: cloudnative
       containers:
         - name: httpserver
-          image: fmeng.azurecr.io/httpserver:1.0
+          image: httpserver
           ports:
             - containerPort: 8080
       startupProbe:
