@@ -13,6 +13,7 @@ RUN go build -o httpserver .
 
 FROM alpine
 COPY --from=build /opt/httpserver /opt/httpserver
+WORKDIR /opt/
 EXPOSE 80
 ENTRYPOINT ["/opt/httpserver"]
 
