@@ -27,7 +27,7 @@ func initConfig() {
 		panic(err)
 	}
 	ins.AddConfigPath(curr)
-	fmt.Println("config_file_name:", os.Getenv("config_file_name"))
+	fmt.Println("config_file_name:", os.Getenv("CONFIG_FILE_NAME"))
 	ins.SetConfigName(os.Getenv("config_file_name"))
 	if err = ins.ReadInConfig(); err != nil {
 		panic(err)
