@@ -25,16 +25,16 @@ spec:
         - name: httpserver
           image: registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1
           imagePullPolicy: Always
-          command:
-            - /bin/sh
-            - -c
-            - sleep 6000
+#          command:
+#            - /bin/sh
+#            - -c
+#            - sleep 6000
           ports:
             - containerPort: 80
           startupProbe:
             httpGet:
               path: /healthz
-              port: liveness-port
+              port: 80
             failureThreshold: 30
             periodSeconds: 10
           readinessProbe:
@@ -60,12 +60,12 @@ spec:
             requests:
               memory: "10Mi"
               cpu: "10m"
-          lifecycle:
-            postStart:
-              httpGet:
-                path: /prestart
-                port: 80
-                scheme: HTTP
+#          lifecycle:
+#            postStart:
+#              httpGet:
+#                path: /prestart
+#                port: 80
+#                scheme: HTTP
           env:
             # 定义环境变量
             - name: PLAYER_INITIAL_LIVES # 请注意这里和 ConfigMap 中的键名是不一样的

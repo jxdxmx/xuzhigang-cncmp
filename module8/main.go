@@ -41,8 +41,8 @@ func handleOsSig(ch chan<- struct{}) {
 	var s = make(chan os.Signal)
 	signal.Notify(s, syscall.SIGTERM, syscall.SIGINT, syscall.SIGQUIT)
 	<-s
-	fmt.Println("catch signal ... do something... -> sleep 20s")
-	time.Sleep(20 * time.Second)
+	fmt.Println("catch signal ... do something... -> sleep 5s")
+	time.Sleep(5 * time.Second)
 	ch <- struct{}{}
 }
 
@@ -74,14 +74,14 @@ func healthZHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func readyHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("ready check:start to sleep 10s")
-	time.Sleep(time.Second * 5)
+	fmt.Println("ready check:start to sleep 1s")
+	time.Sleep(time.Second * 1)
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 
 func preStartHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("pre start:start to sleep 10s")
-	time.Sleep(time.Second * 10)
+	fmt.Println("pre start:start to sleep 1s")
+	time.Sleep(time.Second * 1)
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 func indexHandler(w http.ResponseWriter, r *http.Request) {
