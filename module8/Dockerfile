@@ -13,6 +13,7 @@ RUN go build -o httpserver .
 
 FROM alpine
 COPY --from=build /opt/httpserver /opt/httpserver
+# 这条WORKDIR代码一定要加上！否则路径相关的地方会出幺蛾子！
 WORKDIR /opt/
 EXPOSE 80
 ENTRYPOINT ["/opt/httpserver"]
