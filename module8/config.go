@@ -24,7 +24,7 @@ func initConfig() {
 	ins.SetConfigType("yaml")
 	ins.AddConfigPath("config")
 	fmt.Println("config_file_name:", os.Getenv("CONFIG_FILE_NAME"))
-	ins.SetConfigName(os.Getenv("config_file_name"))
+	ins.SetConfigName(os.Getenv("CONFIG_FILE_NAME"))
 	if err := ins.ReadInConfig(); err != nil {
 		panic(err)
 	}
