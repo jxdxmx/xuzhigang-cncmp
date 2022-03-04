@@ -14,42 +14,52 @@ spec:
       labels:
         app: httpserver
     spec:
+#      //kubectl create secret docker-registry alicloud \
+#      //--docker-server="registry.cn-hangzhou.aliyuncs.com" \
+#      //--docker-username="jxdxmx@126.com" \
+#      //--docker-password="jxdxmx@126.com" \
+#      //--docker-email="jxdxmx@126.com"
       imagePullSecrets:
-        - name: cloudnative
+        - name: alicloud
       containers:
         - name: httpserver
-          image: httpserver
+          image: registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1
           ports:
-            - containerPort: 8080
-      startupProbe:
-        httpGet:
-          path: /healthz
-          port: liveness-port
-        failureThreshold: 30
-        periodSeconds: 10
+            - containerPort: 80
+#      startupProbe:
+#        httpGet:
+#          path: /healthz
+#          port: liveness-port
+#        failureThreshold: 30
+#        periodSeconds: 10
       readinessProbe:
         httpGet:
-          path: /healthz
-          port: 8080
+          path: /ready
+          port: 80
           scheme: HTTP
         initialDelaySeconds: 5
         periodSeconds: 3
       livenessProbe:
         httpGet:
           path: /healthz
-          port: 8080
+          port: 80
           httpHeaders:
             - name: Custom-Header
               value: Awesome
         initialDelaySeconds: 3
         periodSeconds: 3
       limits:
-        memory: "200Mi"
-        cpu: "700m"
+        memory: "100Mi"
+        cpu: "100m"
       requests:
-        memory: "200Mi"
-        cpu: "700m"
+        memory: "10Mi"
+        cpu: "10m"
       lifecycle:
+        preStart:
+          httpGet:
+            path: /prestart
+            port: 80
+            scheme: HTTP
         preStop:
           exec:
             command:

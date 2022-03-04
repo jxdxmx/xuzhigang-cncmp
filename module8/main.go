@@ -21,6 +21,7 @@ func main() {
 	mux.HandleFunc("/healthz", healthZHandler)
 	mux.HandleFunc("/homework", handler)
 	fmt.Println("env PLAYER_INITIAL_LIVES:", os.Getenv("PLAYER_INITIAL_LIVES")) // 环境变量
+
 	var done = make(chan struct{})
 	go handleOsSig(done)
 	go func() {
@@ -68,7 +69,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func healthZHandler(w http.ResponseWriter, r *http.Request) {
-	_, _ = w.Write([]byte("hello world module3"))
+	_, _ = w.Write([]byte("hello world module8 healthZHandler,Custom-Header:" + r.Header.Get("Custom-Header")))
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 
