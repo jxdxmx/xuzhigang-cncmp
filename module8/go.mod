@@ -1,4 +1,4 @@
-module leaning/xuzhigang-cncmp
+module leaning/xuzhigang-cncmp/module8
 
 go 1.16
 
