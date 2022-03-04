@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 	"os"
+	"path"
 )
 
 var conf Config
@@ -26,7 +27,7 @@ func initConfig() {
 	if err != nil {
 		panic(err)
 	}
-	ins.AddConfigPath(curr)
+	ins.AddConfigPath(path.Join(curr, "config"))
 	fmt.Println("config_file_name:", os.Getenv("CONFIG_FILE_NAME"))
 	ins.SetConfigName(os.Getenv("config_file_name"))
 	if err = ins.ReadInConfig(); err != nil {
