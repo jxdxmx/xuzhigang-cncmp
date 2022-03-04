@@ -5,7 +5,7 @@ COPY . .
 #ENV CGO_ENABLED=0
 ENV GO111MODULE=on
 ENV GOPROXY=https://goproxy.cn,direct
-RUN go build -o httpserver homework.go
+RUN go build -o httpserver .
 #RUN GOOS=linux GOARCH=amd64 go build -o httpserver homework.go
 #RUN go mod vendor && go build -mod=vendor -o /opt/httpserver homework.go
 #RUN GOOS=linux go build -o httpserver homework.go
