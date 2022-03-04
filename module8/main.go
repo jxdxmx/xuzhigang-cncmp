@@ -12,7 +12,7 @@ import (
 
 func main() {
 	initConfig() // 加载配置
-	fmt.Printf("conf:%+v", conf)
+	fmt.Printf("conf:%+v \n", conf)
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", indexHandler)
