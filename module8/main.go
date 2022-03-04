@@ -74,16 +74,16 @@ func healthZHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 
-func readyHandler(w http.ResponseWriter, r *http.Request) {
+func readyHandler(w http.ResponseWriter, _ *http.Request) {
 	fmt.Println("ready check:OK")
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 
-func preStartHandler(w http.ResponseWriter, r *http.Request) {
+func preStartHandler(w http.ResponseWriter, _ *http.Request) {
 	fmt.Println("pre start:OK")
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
-func indexHandler(w http.ResponseWriter, r *http.Request) {
+func indexHandler(w http.ResponseWriter, _ *http.Request) {
 	_, _ = w.Write([]byte("hello world module8 !!! index ."))
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
