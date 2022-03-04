@@ -24,14 +24,19 @@ spec:
       containers:
         - name: httpserver
           image: registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1
+          imagePullPolicy: Always
+          command:
+            - /bin/sh
+            - -c
+            - sleep 6000
           ports:
             - containerPort: 80
-#      startupProbe:
-#        httpGet:
-#          path: /healthz
-#          port: liveness-port
-#        failureThreshold: 30
-#        periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: liveness-port
+            failureThreshold: 30
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /ready

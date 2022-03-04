@@ -8,7 +8,7 @@ data:
   config_file_name: "http_server_config.yaml"
   loglevel: debug
   # 类文件键
-  config.yaml: |
+  http_server_config.yaml: |
     basic:
       bid: "603ef0cccbc9590001c1d58f"
       staff_id: ""
