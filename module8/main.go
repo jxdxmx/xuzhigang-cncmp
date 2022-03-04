@@ -69,22 +69,21 @@ func handler(w http.ResponseWriter, r *http.Request) {
 }
 
 func healthZHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("hello world module8 healthZHandler,Custom-Header:" + r.Header.Get("Custom-Header"))
 	_, _ = w.Write([]byte("hello world module8 healthZHandler,Custom-Header:" + r.Header.Get("Custom-Header")))
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 
 func readyHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("ready check:start to sleep 1s")
-	time.Sleep(time.Second * 1)
+	fmt.Println("ready check:OK")
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 
 func preStartHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("pre start:start to sleep 1s")
-	time.Sleep(time.Second * 1)
+	fmt.Println("pre start:OK")
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	_, _ = w.Write([]byte("hello world module3 !!! index ."))
+	_, _ = w.Write([]byte("hello world module8 !!! index ."))
 	w.WriteHeader(http.StatusOK) // 4、当访问 localhost/healthz 时，应返回 200
 }
