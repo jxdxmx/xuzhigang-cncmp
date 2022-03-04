@@ -23,8 +23,13 @@ spec:
         - name: alicloud
       containers:
         - name: httpserver
+#          docker build -t registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1 .
+#          docker push registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1
+#          k delete -f deploy.yaml
+#          k apply -f deploy.yaml
+#          k get po -w
           image: registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1
-          imagePullPolicy: Always
+          imagePullPolicy: Always # 如果是IfNotPresent，那么修改代码后【应该升级版本！】，无法拉取到最新镜像！！！大坑啊。
 #          command:
 #            - /bin/sh
 #            - -c
