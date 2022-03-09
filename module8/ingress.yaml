@@ -4,13 +4,22 @@ metadata:
   name: httpserver-80
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - test.httpserver.com
+      secretName: test-httpserver-com
+
+#  openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout tls.key -out tls.crt -subj "/CN=test.httpserver.com/O=cncamp" -addext "subjectAltName = DNS:test.httpserver.com"
+#  kubectl create secret tls test-httpserver-com --cert=./tls.crt --key=./tls.key
+
+
   rules:
     - host: test.httpserver.com
       http:
         paths:
           - backend:
               service:
-                name: httpsvc
+                name: httpserver
                 port:
                   number: 80
             path: /
