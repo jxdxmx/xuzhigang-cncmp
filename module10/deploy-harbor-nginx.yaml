@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: harbor-deploy
+  name: deploy-harbor-nginx
   namespace: learning
 spec:
   replicas: 1
@@ -13,6 +13,8 @@ spec:
       labels:
         app: harbor-nginx
     spec:
+      imagePullSecrets:
+        - name: local-harbor
       containers:
         - name: harbor-nginx
           imagePullPolicy: Always
