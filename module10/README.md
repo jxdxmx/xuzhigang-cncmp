@@ -1,0 +1,24 @@
+
+# kubectl create secret docker-registry local-harbor --docker-server="core.harbor.domain" --docker-username="admin" --docker-password="Harbor12345" --docker-email="jxdxmx@126.com"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
