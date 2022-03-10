@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: harbor-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: harbor-nginx
+  template:
+    metadata:
+      labels:
+        app: harbor-nginx
+    spec:
+      containers:
+        - name: harbor-nginx
+          imagePullPolicy: Always
+          image: core.harbor.domain/httpserver/nginx
+          ports:
+            - containerPort: 80
