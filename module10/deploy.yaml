@@ -18,20 +18,10 @@ spec:
       labels:
         app: httpserver
     spec:
-#      //kubectl create secret docker-registry alicloud \
-#      //--docker-server="registry.cn-hangzhou.aliyuncs.com" \
-#      //--docker-username="jxdxmx@126.com" \
-#      //--docker-password="jxdxmx@126.com" \
-#      //--docker-email="jxdxmx@126.com"
       imagePullSecrets:
         - name: alicloud      # 这里还是使用阿里云的镜像仓库。harbor一旦k8s重启、得重新配置一把、很不方便。
       containers:
         - name: httpserver
-#          docker build -t registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1 .
-#          docker push registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1
-#          k delete -f deploy.yaml
-#          k apply -f deploy.yaml
-#          k get po -w
           image: registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.1
           imagePullPolicy: Always # 如果是IfNotPresent，那么修改代码后【应该升级版本！】，无法拉取到最新镜像！！！大坑啊。
 #          command:
