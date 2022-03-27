@@ -2,8 +2,10 @@
 # module12作业
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout istio.tls.key -out istio.tls.crt -subj "/CN=istio.httpserver.com/O=cncamp" -addext "subjectAltName = DNS:istio.httpserver.com"
 kubectl create secret tls istio-httpserver-com-credential --cert=./istio.tls.crt --key=./istio.tls.key -n istio-system
-k apply -f istio-specs.yaml
+k apply -f istio-specs.yaml -n learning
+# 访问到httpserver
 curl --resolve istio.httpserver.com:443:$INGRESS_IP https://istio.httpserver.com/api/ -v -k
+# 访问到default ns下的nginx
 curl --resolve istio.httpserver.com:443:$INGRESS_IP https://istio.httpserver.com/front/ -v -k
 
 root@k8s-master01:~# k get svc -nistio-system
