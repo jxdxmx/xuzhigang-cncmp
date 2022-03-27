@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpserver
+  namespace: learning
+  labels:
+    app: httpserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: httpserver
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "80"  # 默认端口是9090
+      labels:
+        app: httpserver
+    spec:
+      imagePullSecrets:
+        - name: alicloud      # 这里还是使用阿里云的镜像仓库。harbor一旦k8s重启、得重新配置一把、很不方便。
+      containers:
+        - name: httpserver
+          image: registry.cn-hangzhou.aliyuncs.com/xu-citools/httpserver:v1.2-metrics
+          imagePullPolicy: Always # 如果是IfNotPresent，那么修改代码后【应该升级版本！】，无法拉取到最新镜像！！！大坑啊。
+#          command:
+#            - /bin/sh
+#            - -c
+#            - sleep 6000
+          ports:
+            - containerPort: 80 # 必须这里要定义一下。prometheus会查一下prometheus.io/port和containerPort是否一致。如果不一致，会使用默认端口9090.
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            failureThreshold: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+              httpHeaders:
+                - name: Custom-Header
+                  value: Awesome
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          resources:
+            limits:
+              memory: "100Mi"
+              cpu: "100m"
+            requests:
+              memory: "10Mi"
+              cpu: "10m"
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "echo Hello from the postStart handler > /usr/share/message"]
+            preStop:
+              exec:
+                command: ["/bin/sh","-c","nginx -s quit; while killall -0 nginx; do sleep 1; done"]
+#          lifecycle:
+#            postStart:
+#              httpGet:
+#                path: /prestart
+#                port: 80
+#                scheme: HTTP
+          env:
+            # 定义环境变量
+            - name: PLAYER_INITIAL_LIVES # 请注意这里和 ConfigMap 中的键名是不一样的
+              valueFrom:
+                configMapKeyRef:
+                  name: demo           # 这个值来自 ConfigMap
+                  key: player_initial_lives # 需要取值的键
+            - name: CONFIG_FILE_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: demo
+                  key: config_file_name
+          volumeMounts:
+            - name: config
+              mountPath: "/opt/config/"
+              readOnly: true
+      volumes:
+        # 你可以在 Pod 级别设置卷，然后将其挂载到 Pod 内的容器中
+        - name: config
+          configMap:
+            # 提供你想要挂载的 ConfigMap 的名字
+            name: demo

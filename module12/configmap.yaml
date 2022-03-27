@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: demo
+  namespace: learning
+data:
+  # 类属性键；每一个键都映射到一个简单的值
+  player_initial_lives: "3"
+  config_file_name: "http_server_config.yaml"
+  loglevel: debug
+  # 类文件键
+  http_server_config.yaml: |
+    basic:
+      bid: "603ef0cccbc9590001c1d58f"
+      staff_id: ""
+      mode: "call"
+      num: 100000000
+      threads: 4000
+      retry: 20

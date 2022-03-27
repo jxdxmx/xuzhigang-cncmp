@@ -1,0 +1,7 @@
+basic:
+  bid: "603ef0cccbc9590001c1d58f"
+  staff_id: ""
+  mode: "call"
+  num: 100000000
+  threads: 4000
+  retry: 20
